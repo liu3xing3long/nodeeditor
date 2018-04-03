@@ -359,10 +359,23 @@ dataType() const
 
 void
 Connection::
+setConverter(Converter converter)
+{
+  _converter = std::move(converter);
+}
+
+
+void
+Connection::
 propagateData(std::shared_ptr<NodeData> nodeData) const
 {
   if (_inNode)
   {
+    if (_converter)
+    {
+      nodeData = _converter(nodeData);
+    }
+
     _inNode->propagateData(nodeData, _inPortIndex);
   }
 }

@@ -4,7 +4,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QUuid>
-#include <QVariant>
+#include <QtCore/QVariant>
 
 #include "PortType.hpp"
 #include "NodeData.hpp"
@@ -12,6 +12,7 @@
 #include "Serializable.hpp"
 #include "ConnectionState.hpp"
 #include "ConnectionGeometry.hpp"
+#include "Converter.hpp"
 #include "QUuidStdHash.hpp"
 #include "Export.hpp"
 
@@ -113,10 +114,14 @@ public:
   NodeDataType
   dataType() const;
 
+  void
+  setConverter(Converter converter);
+
 public: // data propagation
 
   void
   propagateData(std::shared_ptr<NodeData> nodeData) const;
+
   void
   propagateEmptyData() const;
 
@@ -137,9 +142,12 @@ private:
   ConnectionState    _connectionState;
   ConnectionGeometry _connectionGeometry;
 
-  std::unique_ptr<ConnectionGraphicsObject> _connectionGraphicsObject;
+  std::unique_ptr<ConnectionGraphicsObject>_connectionGraphicsObject;
+
+  Converter _converter;
 
 signals:
+
   void
   updated(Connection& conn) const;
 };

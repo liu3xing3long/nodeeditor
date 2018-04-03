@@ -147,11 +147,11 @@ drawConnectionPoints(QPainter* painter,
           {
             if (portType == PortType::In)
             {
-              typeConvertable = scene.registry().getTypeConverter(state.reactingDataType().id, dataType.id) != nullptr;
+              typeConvertable = scene.registry().getTypeConverter(state.reactingDataType(), dataType) != nullptr;
             }
             else
             {
-              typeConvertable = scene.registry().getTypeConverter(dataType.id, state.reactingDataType().id) != nullptr;
+              typeConvertable = scene.registry().getTypeConverter(dataType, state.reactingDataType()) != nullptr;
             }
           }
 
