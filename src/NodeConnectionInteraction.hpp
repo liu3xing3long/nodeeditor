@@ -28,7 +28,7 @@ public:
   /// 3) Node port is vacant
   /// 4) Connection type equals node port type, or there is a registered type conversion that can translate between the two
   bool canConnect(PortIndex & portIndex, 
-                  Converter & converter) const;
+                  TypeConverter & converter) const;
 
   /// 1)   Check conditions from 'canConnect'
   /// 1.5) If the connection is possible but a type conversion is needed, add a converter node to the scene, and connect it properly

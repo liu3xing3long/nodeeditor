@@ -3,7 +3,6 @@
 #include "NodeData.hpp"
 
 #include <functional>
-#include <tuple>
 
 namespace QtNodes
 {
@@ -11,15 +10,11 @@ namespace QtNodes
 using SharedNodeData = std::shared_ptr<NodeData>;
 
 // a function taking in NodeData and returning NodeData
-using Converter =
+using TypeConverter =
   std::function<SharedNodeData(SharedNodeData)>;
 
 // data-type-in, data-type-out
-using ConverterType =
+using TypeConverterId =
   std::pair<NodeDataType, NodeDataType>;
-
-// convertor function
-using ConverterDataModel =
-  std::pair<ConverterType, Converter>;
 
 }

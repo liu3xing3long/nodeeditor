@@ -359,7 +359,7 @@ dataType() const
 
 void
 Connection::
-setConverter(Converter converter)
+setTypeConverter(TypeConverter converter)
 {
   _converter = std::move(converter);
 }

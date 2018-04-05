@@ -25,7 +25,7 @@ NodeConnectionInteraction(Node& node, Connection& connection, FlowScene& scene)
 
 bool
 NodeConnectionInteraction::
-canConnect(PortIndex &portIndex, Converter & converter) const
+canConnect(PortIndex &portIndex, TypeConverter & converter) const
 {
   // 1) Connection requires a port
 
@@ -93,7 +93,7 @@ tryConnect() const
   // 1) Check conditions from 'canConnect'
   PortIndex portIndex = INVALID;
 
-  Converter converter;
+  TypeConverter converter;
 
   if (!canConnect(portIndex, converter))
   {
@@ -104,7 +104,7 @@ tryConnect() const
   //      assign a convertor to connection
   if (converter)
   {
-    _connection->setConverter(converter);
+    _connection->setTypeConverter(converter);
   }
 
   // 2) Assign node to required port in Connection

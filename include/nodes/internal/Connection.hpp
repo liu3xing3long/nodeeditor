@@ -12,7 +12,7 @@
 #include "Serializable.hpp"
 #include "ConnectionState.hpp"
 #include "ConnectionGeometry.hpp"
-#include "Converter.hpp"
+#include "TypeConverter.hpp"
 #include "QUuidStdHash.hpp"
 #include "Export.hpp"
 
@@ -115,7 +115,7 @@ public:
   dataType() const;
 
   void
-  setConverter(Converter converter);
+  setTypeConverter(TypeConverter converter);
 
 public: // data propagation
 
@@ -144,7 +144,7 @@ private:
 
   std::unique_ptr<ConnectionGraphicsObject>_connectionGraphicsObject;
 
-  Converter _converter;
+  TypeConverter _converter;
 
 signals:
 
