@@ -2,6 +2,7 @@
 
 #include "NodeData.hpp"
 
+#include <memory>
 #include <functional>
 
 namespace QtNodes

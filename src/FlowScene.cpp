@@ -252,7 +252,7 @@ iterateOverNodeDataDependentOrder(std::function<void(NodeDataModel*)> visitor)
   auto isNodeLeaf =
     [](Node const &node, NodeDataModel const &model)
     {
-      for (size_t i = 0; i < model.nPorts(PortType::In); ++i)
+      for (unsigned int i = 0; i < model.nPorts(PortType::In); ++i)
       {
         auto connections = node.nodeState().connections(PortType::In, i);
         if (!connections.empty())

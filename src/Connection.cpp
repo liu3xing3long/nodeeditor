@@ -27,6 +27,7 @@ using QtNodes::NodeData;
 using QtNodes::NodeDataType;
 using QtNodes::ConnectionGraphicsObject;
 using QtNodes::ConnectionGeometry;
+using QtNodes::TypeConverter;
 
 Connection::
 Connection(PortType portType,

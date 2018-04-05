@@ -131,7 +131,7 @@ recalculateSize(QFont const & font) const
 
 QPointF
 NodeGeometry::
-portScenePosition(int index,
+portScenePosition(PortIndex index,
                   PortType portType,
                   QTransform t) const
 {
