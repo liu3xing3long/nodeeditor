@@ -330,28 +330,41 @@ clearNode(PortType portType)
 
 NodeDataType
 Connection::
-dataType() const
+dataType(PortType portType) const
 {
-  Node* validNode;
-  PortIndex index    = INVALID;
-  PortType  portType = PortType::None;
-
-  if ((validNode = _inNode))
+  if (_inNode && _outNode)
   {
-    index    = _inPortIndex;
-    portType = PortType::In;
-  }
-  else if ((validNode = _outNode))
-  {
-    index    = _outPortIndex;
-    portType = PortType::Out;
-  }
-
-  if (validNode)
-  {
-    auto const &model = validNode->nodeDataModel();
+    auto const & model = (portType == PortType::In) ?
+                        _inNode->nodeDataModel() :
+                        _outNode->nodeDataModel();
+    PortIndex index = (portType == PortType::In) ? 
+                      _inPortIndex :
+                      _outPortIndex;
 
     return model->dataType(portType, index);
+  }
+  else 
+  {
+    Node* validNode;
+    PortIndex index = INVALID;
+
+    if ((validNode = _inNode))
+    {
+      index    = _inPortIndex;
+      portType = PortType::In;
+    }
+    else if ((validNode = _outNode))
+    {
+      index    = _outPortIndex;
+      portType = PortType::Out;
+    }
+
+    if (validNode)
+    {
+      auto const &model = validNode->nodeDataModel();
+
+      return model->dataType(portType, index);
+    }
   }
 
   Q_UNREACHABLE();

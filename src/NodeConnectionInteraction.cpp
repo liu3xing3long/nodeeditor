@@ -64,7 +64,8 @@ canConnect(PortIndex &portIndex, TypeConverter & converter) const
 
   // 4) Connection type equals node port type, or there is a registered type conversion that can translate between the two
 
-  auto connectionDataType = _connection->dataType();
+  auto connectionDataType =
+    _connection->dataType(oppositePort(requiredPort));
 
   auto const   &modelTarget = _node->nodeDataModel();
   NodeDataType candidateNodeDataType = modelTarget->dataType(requiredPort, portIndex);
