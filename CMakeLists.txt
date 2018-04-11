@@ -76,6 +76,7 @@ target_compile_definitions(nodes
     NODE_EDITOR_SHARED
   PRIVATE
     NODE_EDITOR_EXPORTS
+    #NODE_DEBUG_DRAWING
 )
 
 target_compile_options(nodes

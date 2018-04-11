@@ -1,6 +1,6 @@
 #include "ConnectionPainter.hpp"
 
-//#define DEBUG_DRAWING 1
+#include <QtGui/QIcon>
 
 #include "ConnectionGeometry.hpp"
 #include "ConnectionState.hpp"
@@ -10,6 +10,7 @@
 #include "NodeData.hpp"
 
 #include "StyleCollection.hpp"
+
 
 using QtNodes::ConnectionPainter;
 using QtNodes::ConnectionGeometry;
@@ -57,7 +58,7 @@ getPainterStroke(ConnectionGeometry const& geom)
 }
 
 
-#ifdef DEBUG_DRAWING
+#ifdef NODE_DEBUG_DRAWING
 static
 void
 debugDrawing(QPainter * painter,
@@ -219,6 +220,8 @@ drawNormalLine(QPainter * painter,
   auto const& graphicsObject = connection.getConnectionGraphicsObject();
   bool const selected = graphicsObject.isSelected();
 
+
+  auto cubic = cubicPath(geom);
   if (gradientColor)
   {
     double dr = normalColorIn.red() - normalColorOut.red();
@@ -227,7 +230,7 @@ drawNormalLine(QPainter * painter,
 
     painter->setBrush(Qt::NoBrush);
 
-    unsigned int const segments = 20;
+    unsigned int const segments = 60;
 
     for (unsigned int i = 0ul; i < segments; ++i)
     {
@@ -244,11 +247,22 @@ drawNormalLine(QPainter * painter,
       p.setColor(c);
 
       painter->setPen(p);
-
-      auto cubic = cubicPath(geom);
       painter->drawLine(cubic.pointAtPercent(ratioPrev),
                         cubic.pointAtPercent(ratio));
+
     }
+
+    {
+      QIcon icon(":convert.png");
+
+      QPixmap pixmap = icon.pixmap(QSize(22, 22));
+      painter->drawPixmap(cubic.pointAtPercent(0.50) - QPoint(pixmap.width()/2,
+                                                              pixmap.height()/2),
+
+                          pixmap);
+
+    }
+
   }
   else
   {
@@ -262,8 +276,6 @@ drawNormalLine(QPainter * painter,
     painter->setPen(p);
     painter->setBrush(Qt::NoBrush);
 
-    // cubic spline
-    auto cubic = cubicPath(geom);
     painter->drawPath(cubic);
   }
 }
@@ -280,7 +292,7 @@ paint(QPainter* painter,
 
   drawNormalLine(painter, connection);
 
-#ifdef DEBUG_DRAWING
+#ifdef NODE_DEBUG_DRAWING
   debugDrawing(painter, connection);
 #endif
 
